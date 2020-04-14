@@ -1,0 +1,44 @@
+アプリ名決める【Pet Fam】
+
+イシューに登録内容まとめる
+-ログイン機能
+-ログアウト機能
+-写真登録機能
+-迷子情報登録機能
+-Twitter連携(できれば)
+
+エラー発生した場合
+-ひたすらechoかvar_dumpして自力で確認
+-無理ならやったこと、怪しい部分書いてプルリク
+-プルリクのURLをSlackに貼る
+-
+
+他の人のプルリク確認してみる
+-いいのあったらパクる
+
+1つの機能が完成したら、動作確認してプルリクを作成して、自分でセルフマージ
+
+<label for="email">メールアドレス</label><br>
+    <input type="email" name="email" id="" class="" autofocus required><br>
+
+    <label for="username">ユーザー名</label><br>
+    <input type="text" name="username" id="" class="" required><br>
+    <label for="petname">ペットの名前</label><br>
+    <input type="text" name="type_id" id="" class="" required><br>
+    <label for="type_id">ペットカテゴリー</label><br>
+
+    <select name="type" class="" require><br>
+      <option value="" disabled selected>選択してください</option><br>
+      <?php foreach ($categories as $c) : ?>
+        <option value="<?php echo h($c['id']); ?>"><?php echo h($c['type']); ?></option>
+      <?php endforeach; ?>
+    </select><br>
+    <label for="type_name">ペットの種類</label><br>
+    <input type="name" name="type" id="" class="" required><br>
+    <label for="profile">紹介文･コメント</label><br>
+    <textarea cols="30" rows="5" name="profile" class="textaread" required></textarea><br>
+    <input type="file" name="image" size="35" required><br>
+    <label for="password">パスワ-ド</label><br>
+    <input type="password" name="password" id="" class="" required><br>
+    <a href="sign_in.php"><input type="submit" value="新規登録" class=""></a><br>
+  </form>

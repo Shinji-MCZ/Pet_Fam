@@ -1,13 +1,5 @@
 <?php
 
-require_once('config.php');
-require_once('functions.php');
-require_once('categories.php');
-
-session_start();
-
-$dbh = connectDb();
-
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +18,7 @@ $dbh = connectDb();
 
 <body>
   <header class="page-header wrapper">
-    <h1 class="">Pet Fam</h1>
+    <h1 class="font1">Pet Fam</h1>
     <div>
       <nav>
         <ul class="sign-nav">
@@ -39,14 +31,12 @@ $dbh = connectDb();
           <?php endif; ?>
         </ul>
         <ul class="main-nav">
-          <li><a href="about.php" class="nav-link">About</a></li>
-          <li><a href=" photo.php" class="nav-link">Photo</a></li>
-          <li><a href=" search.php" class="nav-link">Search</a></li>
-        </ul>
-      </nav>
-      <hr>
-      <div class="home-img">
-        <img class="top-image" src="images/よつ.png" alt="">
+          <?php if ($_SESSION['id']) : ?>
+            <li><a href="photo_new.php" class="nav-link">NewPhoto</a></li>
+            <?php endif; ?>
+          </ul>
+        </nav>
+        <hr>
       </div>
       <hr>
   </header>
