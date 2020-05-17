@@ -26,12 +26,12 @@ $dbh = connectDb();
 
 <body>
   <header class="page-header wrapper">
-    <h1 class="">Pet Fam</h1>
     <div>
+      <h1 class="top">PetFam</h1>
       <nav>
         <ul class="sign-nav">
           <?php if ($_SESSION['id']) : ?>
-            <li><a href=" sign_out.php" class="nav-link">ログアウト</a></li>
+            <li><a href="sign_out.php" class="nav-link">ログアウト</a></li>
             <li><a href="photo_new.php" class="nav-link">写真を投稿</a></li>
           <?php else : ?>
             <li><a href="sign_in.php" class="nav-link">ログイン</a></li>
@@ -44,9 +44,8 @@ $dbh = connectDb();
           <li><a href=" search.php" class="nav-link">Search</a></li>
         </ul>
       </nav>
-      <hr>
-      <div class="home-img">
-        <img class="top-image" src="images/よつ.png" alt="">
+      <div>
+        <img class="top-img" src="images/よつ.png" alt="">
       </div>
       <hr>
   </header>

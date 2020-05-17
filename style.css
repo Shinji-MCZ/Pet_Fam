@@ -28,7 +28,16 @@ a {
   text-decoration: none;
 }
 
-img {
+.top {
+  font-family: fantasy;
+  display: inline-block;
+  list-style: none;
+  width: 100px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.top-img {
   max-width: 100%;
   height: auto;
 }
@@ -49,8 +58,6 @@ img {
   margin-left: 80px;
 }
 
-
-
 textarea{
   resize: none;
   width:115px;
@@ -62,5 +69,15 @@ textarea{
   list-style: none;
 }
 
-/*sign_up.php*/
+/*sign_in.php*/
+
+.sign-nav li {
+  font-size: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: inline-block;
+  list-style: none;
+  width: 100px;
+  height: 20px;
+  margin-left: 80px;
+}
 
