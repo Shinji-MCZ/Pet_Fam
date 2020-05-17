@@ -1,0 +1,141 @@
+アプリ名決める【Pet Fam】
+
+イシューに登録内容まとめる
+-ログイン機能
+-ログアウト機能
+-写真登録機能
+-迷子情報登録機能
+-Twitter連携(できれば)
+
+エラー発生した場合
+-ひたすらechoかvar_dumpして自力で確認
+-無理ならやったこと、怪しい部分書いてプルリク
+-プルリクのURLをSlackに貼る
+-
+
+他の人のプルリク確認してみる
+-いいのあったらパクる
+
+1つの機能が完成したら、動作確認してプルリクを作成して、自分でセルフマージ
+
+<label for="email">メールアドレス</label><br>
+    <input type="email" name="email" id="" class="" autofocus required><br>
+
+    <label for="username">ユーザー名</label><br>
+    <input type="text" name="username" id="" class="" required><br>
+    <label for="petname">ペットの名前</label><br>
+    <input type="text" name="type_id" id="" class="" required><br>
+    <label for="type_id">ペットカテゴリー</label><br>
+
+    <select name="type" class="" require><br>
+      <option value="" disabled selected>選択してください</option><br>
+      <?php foreach ($categories as $c) : ?>
+        <option value="<?php echo h($c['id']); ?>"><?php echo h($c['type']); ?></option>
+      <?php endforeach; ?>
+    </select><br>
+    <label for="type_name">ペットの種類</label><br>
+    <input type="name" name="type" id="" class="" required><br>
+    <label for="profile">紹介文･コメント</label><br>
+    <textarea cols="30" rows="5" name="profile" class="textaread" required></textarea><br>
+    <input type="file" name="image" size="35" required><br>
+    <label for="password">パスワ-ド</label><br>
+    <input type="password" name="password" id="" class="" required><br>
+    <a href="sign_in.php"><input type="submit" value="新規登録" class=""></a><br>
+  </form>
+
+
+  <?php
+
+require_once('categories.php');
+require_once('config.php');
+require_once('functions.php');
+
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $email = $_POST['email'];
+  $username = $_POST['username'];
+  $petname = $_POST['petname'];
+  $categories_id = $_POST['categories_id'];
+  $type_name = $_POST['type_name'];
+  $password = $_POST['password'];
+  $errors = [];
+
+  // バリデーション
+  if ($email == '') {
+    $errors[] = 'メールアドレスが未入力です';
+  }
+  if ($username == '') {
+    $errors[] = 'ユーザー名が未入力です';
+  }
+  if ($petname == '') {
+    $errors[] = 'ペットの名前が未入力です';
+  }
+  if ($type_name == '') {
+    $errors[] = '種類が未入力です';
+  }
+  if ($password == '') {
+    $errors[] = 'パスワードが未入力です';
+  }
+}
+
+if (empty($eroors)) {
+  $dbh = connectDb();
+
+  $sql = 'insert into users' . '(email, username, profile, password, created_at, updated_at) values'
+    . '(:email, :username, :password, now(), now())';
+  $sql2 = 'insert into pets' . '(petname, type_name, categories_id, created_at, updated_at) values'
+    . '(:petname, :type_name, :categories_id, now(), now())';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+  $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+  $stmt->bindParam(':profile', $profile, PDO::PARAM_STR);
+  $stmt->bindParam(':petname', $petname, PDO::PARAM_STR);
+  $stmt->bindParam(':type_name', $type_name, PDO::PARAM_STR);
+  $stmt->bindParam(':categories_id', $categories_id, PDO::PARAM_INT);
+  $pw_hash = password_hash($password, PASSWORD_DEFAULT);
+  $stmt->bindParam(':password', $pw_hash);
+  $stmt->execute();
+  // header('Location: sign_in.php');
+  // exit;
+}
+?>
+olllllllllllllllllllllllllll
+
+require_once('categories.php');
+
+$categories = getAllCategories();
+
+$petname = $_POST['petname'];
+  $type_name = $_POST['type_name'];
+
+  if ($petname == '') {
+    $errors[] = 'ペットの名前が未入力です';
+  }
+
+  if ($type_name == '') {
+    $errors[] = 'ペットの種類が未入力です';
+  }
+
+$sql2 = 'INSERT INTO pets' . 'petname, categories_id, type_name, created_at, updated_at) values' .
+      '(:petname, :categories_id, :type_name, now(), now())';
+    $stmt = $dbh->prepare($sql2);
+
+    $stmt->bindParam(":petname", $petname, PDO::PARAM_STR);
+    $stmt->bindParam(":categories_id", $categories_id, PDO::PARAM_INT);
+    $stmt->bindParam(":type_name", $type_name, PDO::PARAM_STR);
+
+
+<label for="petname">ペットの名前【必須】</label><br>
+    <input type="text" name="petname" value="<?php echo h($petname); ?>" required><br>
+
+    <label for="type_id">ペットカテゴリー(項目にない場合は種類で入力してください)</label><br>
+    <select name="categories_id" class=""><br>
+      <option value="" disabled selected>選択してください</option><br>
+      <?php foreach ($categories as $c) : ?>
+        <option value="<?php echo h($c['id']); ?>"><?php echo h($c['type']); ?></option>
+      <?php endforeach; ?>
+    </select><br>
+
+    <label for="type_name">種類【例/トイ･プードル マンチカン etc...】</label><br>
+    <input type="text" name="type_name" value="<?php echo h($type_name); ?>" required><br>
